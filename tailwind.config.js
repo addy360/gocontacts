@@ -4,6 +4,9 @@ module.exports = {
   darkMode: false, // or 'media' or 'class'
   theme: {
     extend: {
+      fontFamily: {
+        cairo: "Cairo",
+      },
       colors: {
         accent: {
           DEFAULT: "#00FF80",

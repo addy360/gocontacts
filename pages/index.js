@@ -1,8 +1,15 @@
-import Head from "next/head";
+import { useState } from "react";
+import Contacts from "../components/Contacts";
+import Search from "../components/Search";
 
 export default function Home() {
+  const [auth, setAuth] = useState(null);
+  const handleClick = () => {
+    if (!auth) setAuth("hellow");
+    else setAuth(null);
+  };
   return (
-    <div className="w-screen h-screen bg-black relative py-4 overflow-hidden">
+    <div className="w-screen h-screen bg-black relative py-4 overflow-hidden font-cairo">
       <div className="absolute inset-0 z-0 ">
         <img
           src="bg.svg"
@@ -19,10 +26,24 @@ export default function Home() {
           />
         </div>
         {/* contacts */}
-        <div className="bg-green-300 ">
-          <h4 className="text-center text-2xl drop-shadow-md font-bold text-accent-500">
+        <div className=" flex flex-col px-4 bg-primary-300 bg-opacity-95 filter contrast-50 drop-shadow-lg shadow-inner h-full rounded-md relative z-50 ">
+          <h4 className="text-center text-4xl filter drop-shadow-md text-secondary font-medium py-5">
             Your contacts
           </h4>
+          {auth && (
+            <>
+              <Search />
+              <Contacts />
+            </>
+          )}
+          {!auth && (
+            <button
+              onClick={handleClick}
+              className="py-2 px-5 rounded outline-none shadow-lg filter drop-shadow-md bg-secondary text-primary-900 text-xl hover:bg-secondary-700 active:scale-50 transition-all "
+            >
+              Load contacts
+            </button>
+          )}
         </div>
       </div>
     </div>
