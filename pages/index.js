@@ -1,12 +1,12 @@
-import { useState } from "react";
 import Contacts from "../components/Contacts";
 import Search from "../components/Search";
+import { useContacts } from "../hooks/useContacts";
 
 export default function Home() {
-  const [auth, setAuth] = useState(null);
+  const { signInWithPopup, auth, signing, userInfo, data } = useContacts();
+  console.dir(`userInfo`, data);
   const handleClick = () => {
-    if (!auth) setAuth("hellow");
-    else setAuth(null);
+    signInWithPopup();
   };
   return (
     <div className="w-screen h-screen bg-black relative py-4 overflow-hidden font-cairo">
@@ -38,10 +38,11 @@ export default function Home() {
           )}
           {!auth && (
             <button
+              disabled={signing}
               onClick={handleClick}
-              className="py-2 px-5 rounded outline-none shadow-lg filter drop-shadow-md bg-secondary text-primary-900 text-xl hover:bg-secondary-700 active:scale-50 transition-all "
+              className="py-2 px-5 rounded outline-none shadow-lg filter drop-shadow-md bg-secondary disabled:bg-secondary-300 text-primary-900 text-xl hover:bg-secondary-700 active:scale-50 transition-all "
             >
-              Load contacts
+              {signing ? "loading" : "load"} contacts
             </button>
           )}
         </div>
